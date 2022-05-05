@@ -26,7 +26,7 @@ with open(file1read, 'r') as election_data:
 
     # 1. The total number of votes cast.
 
-    # 2. S complete list of candidates who received votes
+    # 2. S complete list of candidates who received votes.
 
     # 3. The percentage of votes easch candidate won
 

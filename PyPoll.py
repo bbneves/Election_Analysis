@@ -24,7 +24,7 @@ with open(file1read, 'r') as election_data:
     header = next(file_reader)
     print(header)
 
-    # 1. The total number of votes cast
+    # 1. The total number of votes cast.
 
     # 2. S complete list of candidates who received votes
 

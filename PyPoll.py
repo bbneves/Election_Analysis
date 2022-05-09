@@ -35,7 +35,7 @@ with open(file_to_load) as election_data:
     # Print every row in the CSV file:
 
     for row in file_reader:
-        
+
         # 1.1 Adding the total vote count
         total_votes += 1
 
@@ -52,33 +52,53 @@ with open(file_to_load) as election_data:
         # counting up the votes for each candidate
         candidate_votes[candidate_name] += 1
 
-# Winning Candidate and Winning Count Tracker.
+# Saving the results ans txt file
 
-win_candidate = ""
-win_count = 0
-win_percent = 0
+with open(file_to_save, "w") as txt_file:
 
-# Looping to retrieve the candidates, votes, and percentage.
-for candidate_name in candidate_votes:
+    election_results = (
+        f'\nElection Results\n'
+        f'------------------------\n'
+        f'Total Votes: {total_votes:,}\n'
+        f'------------------------\n'
+    )
+    print(election_results, end="")
 
-    votes = candidate_votes[candidate_name]
-    
-    votes_percentage = (float(votes) / float(total_votes)) * 100
+    # Saving to txt file:
+    txt_file.write(election_results)
 
-    print(f" {candidate_name}: {votes_percentage:.1f}% ({votes}).")
-    print('') 
+    # Winning Candidate and Winning Count Tracker.
 
-    # Comparing the candidates and select the one with the highest vote count.
-    if votes > win_count:
-        win_count = votes
-        win_percent = votes_percentage
-        win_candidate = candidate_name
-    the_winner = (
-        f"----------------------------------------\n"
-        f"Winner: {win_candidate}\n"
-        f"Winning Vote Count: {win_count:,} votes\n"
-        f"Winning Percentage: {win_percent:1f}%\n"
-        f"----------------------------------------\n"
-    )    
-print(the_winner)
+    win_candidate = ""
+    win_count = 0
+    win_percent = 0
+
+    # Looping to retrieve the candidates, votes, and percentage.
+    for candidate_name in candidate_votes:
+
+        votes = candidate_votes[candidate_name]
+        
+        votes_percentage = (float(votes) / float(total_votes)) * 100
+
+        candidate_results = (f" {candidate_name}: {votes_percentage:.1f}% ({votes}).\n")
+        print(candidate_results)
+
+        txt_file.write(candidate_results) 
+
+        # Comparing the candidates and select the one with the highest vote count.
+        if votes > win_count:
+
+            win_count = votes
+            win_percent = votes_percentage
+            win_candidate = candidate_name
+
+
+        the_winner_summary = (
+            f"----------------------------------------\n"
+            f"Winner: {win_candidate}\n"
+            f"Winning Vote Count: {win_count:,} votes\n"
+            f"Winning Percentage: {win_percent:1f}%\n"
+            f"----------------------------------------\n"
+        )    
+    txt_file.write(the_winner_summary)
 print('')
